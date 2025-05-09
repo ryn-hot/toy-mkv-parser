@@ -41,12 +41,20 @@ export default class Parser extends EventEmitter {
         this.metadata.on('subtitle', (subtitle, trackNumber) => {
             if (this.destroyed) return;
             // Use a more prominent log for actual subtitle data emission
-            // debug(`***** Parser emitting subtitle for track ${trackNumber} *****`);
+            debug(`***** Parser emitting subtitle for track ${trackNumber} *****`);
             this.eventEmitter.emit('subtitle-cue', {
                 trackNumber: trackNumber,
                 subtitle: subtitle
             });
         });
+
+        this.metadata.on('audio-packet', pkt => {
+            if (!this.destroyed) this.eventEmitter.emit('audio-packet', pkt)
+        })
+
+        this.metadata.on('video-packet', pkt => {
+            if (!this.destroyed) this.eventEmitter.emit('video-packet', pkt)
+        })
 
         // Promises for initial metadata (Tracks, Attachments, Chapters)
         this.metadata.getTracks().then(tracks => {

@@ -20,7 +20,7 @@ const parserEmitter = new EventEmitter();
 
 parserEmitter.on('subtitle-cue', ({ trackNumber, subtitle }) => {
     // Log the first few subtitle events clearly
-    // log(`***** SUBTITLE RECEIVED ***** Track: ${trackNumber}, Time: ${subtitle.time}, Duration: ${subtitle.duration}, Text: ${subtitle.text}`);
+    log(`***** SUBTITLE RECEIVED ***** Track: ${trackNumber}, Time: ${subtitle.time}, Duration: ${subtitle.duration}, Text: ${subtitle.text}`);
 });
 // Add other listeners as before...
 parserEmitter.on('subtitle-tracks', (tracks) => {
