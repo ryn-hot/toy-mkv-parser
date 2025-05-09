@@ -190,7 +190,7 @@ export default class Metadata extends Util {
     const pts = (block.value + currentClusterTimecode) * timecodeScale
 
 
-    if (track.type === 'subtitle') {
+    if (this.subtitleTracks.has(block.track)) {
       const blockDuration = getData(chunk, EbmlTagId.BlockDuration)
       const payload = track._compressed ? inflateSync(block.payload) : block.payload
       const subtitle = { text: arr2text(payload), time: pts, duration: blockDuration * timecodeScale }
